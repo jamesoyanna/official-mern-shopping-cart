@@ -1,9 +1,13 @@
 require("dotenv").config({ path: "./config.env" });
+const { json } = require("express");
 const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
-
+const productRoutes = require('./routes/productRoutes')
 connectDB();
+
+app.use(json());
+app.use("api/products", productRoutes);
 
 app.use('/', (req, res)=>{
   res.send("App working")
